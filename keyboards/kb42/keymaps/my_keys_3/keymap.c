@@ -17,38 +17,53 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   return update_tri_layer_state(state, _NAV, _SYM, _FUNC);
 }
 
+void leader_start_user(void) {
+
+}
+
+
+void leader_end_user(void) {
+    bool did_leader_succeed = false;
+
+    if (leader_sequence_one_key(KC_F)) {
+        SEND_STRING("Testing the leader");
+        did_leader_succeed = true;
+    }
+}
+
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      /*
-      * ┌───┬───┬───┬───┬───┐       ┌───┬───┬───┬───┬───┐
-      * │ Q │ W │ E │ R │ T │       │ Y │ U │ I │ O │ P │
-      * ├───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┤
-      * │ A │ S │ D │ F │ G │       │ H │ J │ K │ L │ ; │
-      * ├───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┤
-      * │ Z │ X │ C │ V │ B │       │ N │ M │ , │ . │ / │
-      * └───┴───┴───┴───┴───┘       └───┴───┴───┴───┴───┘
-      *               ┌───┐           ┌───┐
-      *               │Bsp├───┐   ┌───┤Ent│
-      *               └───┤Tab│   │Spc├───┘
-      *                   └───┘   └───┘
+      * ┌───┬───┬───┬───┬───┬───┐          ┌───┬───┬───┬───┬───┐───┐
+      * │ESC│ Q │ W │ E │ R │ T │          │ Y │ U │ I │ O │ P │ BS│
+      * ├───┼───┼───┼───┼───┼───┤          ├───┼───┼───┼───┼───┤───┤
+      * │SFT│ A │ S │ D │ F │ G │          │ H │ J │ K │ L │ ; │ENT│
+      * ├───┼───┼───┼───┼───┼───┤          ├───┼───┼───┼───┼───┤───┤
+      * │CTL│ Z │ X │ C │ V │ B │          │ N │ M │ , │ . │ / │ALT│
+      * └───┴───┴───┴───┴───┴───┘          └───┴───┴───┴───┴───┘───┘
+      *               ┌───┐                      ┌───┐
+      *               │Bsp├───┐              ┌───┤Ent│
+      *               └───┤Tab│───┐      ┌───│Spc├───┘
+      *                   └───┘Tab│      │Spc└───┘
+      *                       └───┘      └───┘
       */
     [_BASE] = LAYOUT_split_3x6_3(
     KC_ESC, KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                               KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,     KC_BSPC,
     KC_LSFT,KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                               KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN,  KC_ENT,
     KC_LCTL,KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                               KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,  KC_LALT,
-                                       KC_DEL, MO(_SYM), DF(_GAMING),  MO(_NAV),KC_TAB,  KC_SPC
+                                       KC_DEL, MO(_SYM), QK_LEAD,  MO(_NAV),KC_TAB,  KC_SPC
     ),
     [_GAMING] = LAYOUT_split_3x6_3(
     KC_TRNS, KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_TRNS,                               KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
     KC_TRNS, KC_LSFT, KC_A,    KC_S,    KC_D,    KC_TRNS,                               KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
     KC_TRNS, KC_LCTL, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                               KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-                                       KC_SPC,   MO(_GAME_NUM), DF(_COLEMAK),    KC_TRNS, KC_TRNS, KC_TRNS
+                                       KC_SPC,   MO(_GAME_NUM), QK_LEAD,    KC_TRNS, KC_TRNS, KC_TRNS
     ),
     [_COLEMAK] = LAYOUT_split_3x6_3(
     KC_ESC, KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,                               KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN,  KC_BSPC,
     KC_LSFT,KC_A,    KC_R,    KC_S,    KC_T,    KC_D,                               KC_H,    KC_N,    KC_E,    KC_I,    KC_O,     KC_ENT,
     KC_LCTL,KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                               KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,  KC_RALT,
-                                       KC_DEL, MO(_SYM), DF(_BASE),   KC_RGUI, KC_TAB,  KC_SPC
+                                       KC_DEL, MO(_SYM), QK_LEAD,   KC_RGUI, KC_TAB,  KC_SPC
     ),
     [_NAV] = LAYOUT_split_3x6_3(
     KC_TRNS, KC_NO,   KC_NO,   KC_NO,   KC_MUTE, KC_VOLU,                               KC_HOME, KC_PGDN, KC_PGUP, KC_END,  KC_NO,   KC_NO,
