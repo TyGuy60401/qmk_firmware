@@ -29,6 +29,26 @@ void leader_end_user(void) {
         SEND_STRING("Testing the leader");
         did_leader_succeed = true;
     }
+    if (leader_sequence_one_key(KC_M)) {
+        SEND_STRING("Go 1");
+        did_leader_succeed = true;
+    }
+    if (leader_sequence_one_key(KC_2)) {
+        SEND_STRING("Go 2");
+        did_leader_succeed = true;
+    }
+    if (leader_sequence_one_key(KC_3)) {
+        SEND_STRING("Go 3");
+        did_leader_succeed = true;
+    }
+    if (leader_sequence_one_key(KC_4)) {
+        SEND_STRING("Go 4");
+        did_leader_succeed = true;
+    }
+
+    if (did_leader_succeed) {
+        SEND_STRING("success");
+    }
 }
 
 
@@ -84,9 +104,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                        KC_TRNS,  KC_TRNS, KC_TRNS,    KC_TRNS, KC_TRNS, KC_TRNS
     ),
     [_GAME_NUM] = LAYOUT_split_3x6_3(
-    KC_ESC, KC_9,    KC_0,    KC_TRNS, KC_TRNS, KC_T,                               KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,     KC_BSPC,
-    KC_LSFT,KC_5,    KC_6,    KC_7,    KC_8,    KC_G,                               KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN,  KC_ENT,
-    KC_LCTL,KC_1,    KC_2,    KC_3,    KC_4,    KC_B,                               KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,  KC_RALT,
+    KC_ESC, KC_9,    KC_0,    KC_TRNS, KC_TRNS, KC_T,                               KC_Y,    KC_9,    KC_0,    KC_TRNS, KC_TRNS,   KC_BSPC,
+    KC_LSFT,KC_5,    KC_6,    KC_7,    KC_8,    KC_G,                               KC_H,    KC_5,    KC_6,    KC_7,    KC_8,      KC_ENT,
+    KC_LCTL,KC_1,    KC_2,    KC_3,    KC_4,    KC_B,                               KC_N,    KC_1,    KC_2,    KC_3,    KC_4,      KC_RALT,
                                        KC_BSPC, KC_TAB, KC_LGUI,   KC_RGUI,KC_TAB,  KC_SPC
     ),
 };
